@@ -17,7 +17,7 @@ class LandingPage:
         self.login = LoginPage
         self.register = Register
 
-        landing_canvas = Canvas(landingPage, width=720, height=440, bg="blue")
+        landing_canvas = Canvas(landingPage, width=720, height=440, bg="#600")
         landing_canvas.pack()
 
         landing_frame = Frame(landing_canvas, bg="white")

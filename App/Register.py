@@ -14,7 +14,7 @@ class Register:
         passW = StringVar()
         country = StringVar()
 
-        sup_canvas = Canvas(sup, width=720, height=440, bg="blue")
+        sup_canvas = Canvas(sup, width=720, height=440, bg="#600")
         sup_canvas.pack()
 
         sup_frame = Frame(sup_canvas, bg="white")
