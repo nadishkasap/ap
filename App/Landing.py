@@ -13,8 +13,8 @@ class LandingPage:
     def __init__(self):
 
         landingPage = Tk()
-        self.login = LoginPage
 
+        self.login = LoginPage
         self.register = Register
 
         landing_canvas = Canvas(landingPage, width=720, height=440, bg="blue")
@@ -28,11 +28,6 @@ class LandingPage:
         heading.place(relx=0.2, rely=0.1)
 
         # Format the labels
-        def admin():
-            tkinter.messagebox.showinfo('Response', 'Thanks for cliking the button')
-
-        def student():
-            tkinter.messagebox.showinfo('Response', 'Thanks for cliking the button')
 
         button1 = tkinter.Button(landing_frame, text='Admin Login', borderwidth=1, relief='solid',command=self.login)
         button2 = tkinter.Button(landing_frame, text='Student Login', borderwidth=1, relief='solid',command=self.login )
@@ -52,4 +47,3 @@ class LandingPage:
 
 
 LandingPage()
-#sdfgsgs
