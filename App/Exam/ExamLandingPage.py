@@ -17,7 +17,7 @@ class ExamLandingPage:
         heading.config(font=('calibri 25'))
         heading.place(relx=0.2, rely=0.1)
 
-        
+
 
         btnStartExam = Button(sup_frame, text="Click me!",)
         img = PhotoImage(file="D:/SEM 4/AP_Project/ap/App/images/btn-start-exam.png")

@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.messagebox
 from tkinter import *
-import CsvUploader as CsvUpload
+from CsvUploader import CsvUpload
 
 class AdminDashboard:
     def __init__(self):
