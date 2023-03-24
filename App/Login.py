@@ -1,39 +1,46 @@
 import tkinter as tk
-import tkinter.messagebox
-import mysql.connector
-from Admin import Admin
-import random
-import csv
-import os
+from tkinter import *
+from AdminDashboard import AdminDashboard
 
 class LoginPage:
     def __init__(self):
 
-        self.marks = 0
-        self.mycursor=''
-        self.admin = Admin
-
         self.root = tk.Tk()
-        self.root.geometry("550x300")
-        self.f1 = tk.Frame(self.root, bg='yellow')
-        self.f1.place(x=0, y=0, width=800, height=400)
-        # username
-        self.l1 = tk.Label(self.f1, text='Enter User Name ss:')
-        self.l1.place(x=50, y=50)
-        self.e1 = tk.Entry(self.f1, width=25, font=("", 12))
-        self.e1.place(x=200, y=50)
-        # password
-        self.l2 = tk.Label(self.f1, text='Enter Passwordss:')
-        self.l2.place(x=50, y=100)
-        self.e2 = tk.Entry(self.f1, width=25, font=("", 12), show='*')
-        self.e2.place(x=200, y=100)
-        # buttons
-        self.b1 = tk.Button(self.f1, text="LogIn", bg='blue',command=self.LoginClick)
-        self.b1.place(x=250, y=150, width=100, height=50)
-        self.b2 = tk.Button(self.f1, text="Exit", command=self.root.destroy, bg='red')
-        self.b2.place(x=100, y=150, width=100, height=50)
+        self.AdminDashboard = AdminDashboard
+
+        global sup
+        sup = Tk()
+        sup_canvas = Canvas(sup, width=720, height=440, bg="#600")
+        sup_canvas.pack()
+
+        sup_frame = Frame(sup_canvas, bg="white")
+        sup_frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
+
+        heading = Label(sup_frame, text="Registration Page", fg="black", bg="white")
+        heading.config(font=('calibri 40'))
+        heading.place(relx=0.2, rely=0.1)
+
+        # Username
+        flabel = Label(sup_frame, text="User Name", fg='black', bg='white')
+        flabel.place(relx=0.21, rely=0.4)
+        fname = Entry(sup_frame, bg='#d3d3d3', fg='black')
+        fname.config(width=42)
+        fname.place(relx=0.32, rely=0.4)
+
+        # Password
+        ulabel = Label(sup_frame, text="Password", fg='black', bg='white')
+        ulabel.place(relx=0.21, rely=0.5)
+        user = Entry(sup_frame, bg='#d3d3d3', fg='black')
+        user.config(width=42)
+        user.place(relx=0.32, rely=0.5)
+
+        # Login BUTTON
+        sp = Button(sup_frame, text='Log In', padx=5, pady=5, width=5,  bg='green', command=self.LoginClick)
+        sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
+        sp.place(relx=0.35, rely=0.8)
+
 
         self.root.mainloop()
 
     def LoginClick(self):
-        self.admin()
+        self.AdminDashboard()

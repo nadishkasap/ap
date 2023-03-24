@@ -12,6 +12,8 @@ import os
 class LandingPage:
     def __init__(self):
 
+        global landingPage
+
         landingPage = Tk()
 
         self.login = LoginPage
@@ -29,18 +31,22 @@ class LandingPage:
 
         # Format the labels
 
-        button1 = tkinter.Button(landing_frame, text='Admin Login', borderwidth=1, relief='solid',command=self.login)
-        button2 = tkinter.Button(landing_frame, text='Student Login', borderwidth=1, relief='solid',command=self.login )
-        button3 = tkinter.Button(landing_frame, text='Register', borderwidth=1, relief='solid',command=self.register )
 
-        button1.place(relx=0.3, rely=0.4)
-        button2.place(relx=0.3, rely=0.6)
-        button3.place(relx=0.3, rely=0.8)
+
+        adminLogin = tkinter.Button(landing_frame, text='Login to LMS', borderwidth=1, relief='solid',command=self.login)
+        adminLogin.place(x=250, y=150, width=100, height=50)
+
+        register = tkinter.Button(landing_frame, text='Register', borderwidth=1, relief='solid',command=self.register, bg='green' )
+        register.configure(width=16, height=1, activebackground="#33B5E5", relief=FLAT)
+        register.place(x=250, y=250, width=100, height=50)
+
+
 
         landingPage.mainloop()
 
         def login(self):
             self.login()
+
 
         def register(self):
             self.Register()
