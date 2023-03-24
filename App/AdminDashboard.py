@@ -1,11 +1,13 @@
 import tkinter as tk
 import tkinter.messagebox
 from tkinter import *
+import CsvUploader as CsvUpload
 
 class AdminDashboard:
     def __init__(self):
         global sup
         sup = Tk()
+        self.CsvUploader = CsvUpload
 
         sup_canvas = Canvas(sup, width=720, height=440, bg="#600")
         sup_canvas.pack()
@@ -30,7 +32,7 @@ class AdminDashboard:
         buttonViewStudentMarks.place(relx=0.31, rely=0.5)
         buttonViewStudentMarks.config(width=30)
 
-        uploadQuestions = Button(sup_frame, text="Upload Questions", fg='black', bg='white')
+        uploadQuestions = Button(sup_frame, text="Upload Questions", fg='black', bg='white',command=self.csvUpload)
         uploadQuestions.place(relx=0.31, rely=0.6)
         uploadQuestions.config(width=30)
 
@@ -40,4 +42,5 @@ class AdminDashboard:
 
         sup.mainloop()
 
-AdminDashboard()
+    def csvUpload(self):
+        self.CsvUploader()
