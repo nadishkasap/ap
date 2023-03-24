@@ -1,12 +1,14 @@
 import tkinter as tk
 from tkinter import *
 from AdminDashboard import AdminDashboard
+from StudentDashboard import  StudentDashboard
 
 class LoginPage:
     def __init__(self):
 
         self.root = tk.Tk()
         self.AdminDashboard = AdminDashboard
+        self.StudentDashboard = StudentDashboard
 
         global sup
         sup = Tk()
@@ -35,12 +37,20 @@ class LoginPage:
         user.place(relx=0.32, rely=0.5)
 
         # Login BUTTON
-        sp = Button(sup_frame, text='Log In', padx=5, pady=5, width=5,  bg='green', command=self.LoginClick)
+        sp = Button(sup_frame, text='Log In - ADMIN', padx=5, pady=5, width=5,  bg='green', command=self.LoginClick)
         sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
-        sp.place(relx=0.35, rely=0.8)
+        sp.place(relx=0.35, rely=0.7)
+
+        # Login BUTTON TEMPORARY
+        sp = Button(sup_frame, text='Log In TEMP - Student', padx=5, pady=5, width=5, bg='green', command=self.TemFuncClick)
+        sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
+        sp.place(relx=0.35, rely=.8)
 
 
         self.root.mainloop()
 
     def LoginClick(self):
         self.AdminDashboard()
+
+    def TemFuncClick(self):
+        self.StudentDashboard()

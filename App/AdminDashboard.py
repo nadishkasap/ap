@@ -39,5 +39,3 @@ class AdminDashboard:
         provistionDatabase.config(width=30)
 
         sup.mainloop()
-
-AdminDashboard()
