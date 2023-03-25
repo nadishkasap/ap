@@ -30,7 +30,7 @@ class LoginPage:
         heading.place(relx=0.2, rely=0.1)
 
         #Quite Button
-        quit_button = Button(sup, text="X", command=sup.destroy, width=5, bg="black", pady=10, padx=3, fg="white", font=("ariel", 16, " bold"))
+        quit_button = Button(sup_frame, text="X", command=sup.destroy, width=5, bg="black", pady=10, padx=3, fg="white", font=("ariel", 16, " bold"))
         quit_button.place(relx=.98, rely=.02, anchor="ne")
 
         # Username
@@ -43,12 +43,12 @@ class LoginPage:
         # Password
         ulabel = Label(sup_frame, text="Password", fg='black', bg='white',font=('Georgia 16'))
         ulabel.place(relx=0.21, rely=0.5)
-        self.passW = Entry(sup_frame,  fg='#560600',textvariable=self.passW, font=('Georgia 16'))
+        self.passW = Entry(sup_frame,show="*", fg='#560600',textvariable=self.passW, font=('Georgia 16'))
         self.passW.config(width=30,border=1,bg="#F7FBFF")
         self.passW.place(relx=0.32, rely=0.5)
 
         global errVar
-        errVar = StringVar()
+        errVar = StringVar(sup)
         errMessage = Label(sup_frame, textvariable=errVar, fg="red", bg="white")
         errMessage.config(font=('calibri 12 bold'))
         errMessage.place(relx=0.21, rely=0.6)
@@ -65,31 +65,46 @@ class LoginPage:
 
         fname = self.fname.get()
         passW = self.passW.get()
-        print(fname, " | ", passW)
-        db = self.database('localhost', 'root', '', 'quiz')
-        db.connect()
 
-        cursor = db.connection.cursor()
-        selectQuery = """SELECT * FROM user where fname=%s and passW=%s"""
-        val = (fname, passW)
-        cursor.execute(selectQuery, val)
-        results = cursor.fetchall()
-
-        print(results)
-        if len(results) < 1:
-            print("WRONG UN PW")
-            errVar.set("Invalid Username or Password! Try Again.")
+        if fname == '' or passW == '' :
+            errVar.set("Please fill all the fields!")
         else:
-            for i in results: # check if admin or student
-                rowId = i[0]
-                userFirstName = i[1]
-                userLastName = i[2]
-                userEmail = i[3]
 
-                if i[5] == 1: # Check usertype == admin (1)
-                    self.AdminDashboard(rowId,userFirstName,userLastName,userEmail)
-                elif i[5] ==2: # Check usertype == student (2)
-                    self.StudentDashboard(rowId,userFirstName,userLastName,userEmail)
-                else:
-                    print("ERROR LOGIN")
+            try:
+                #print(fname, " | ", passW)
+
+                db = self.database('localhost', 'root', '', 'quiz')
+                db.connect()
+
+                cursor = db.connection.cursor()
+                selectQuery = """SELECT * FROM user where fname=%s and passW=%s"""
+                val = (fname, passW)
+                cursor.execute(selectQuery, val)
+                results = cursor.fetchall()
+
+                print(results)
+                if len(results) < 1:
+                    print("WRONG UN PW")
                     errVar.set("Invalid Username or Password! Try Again.")
+                else:
+                    for i in results: # check if admin or student
+                        rowId = i[0]
+                        userFirstName = i[1]
+                        userLastName = i[2]
+                        userEmail = i[3]
+
+                        if i[5] == 1: # Check usertype == admin (1)
+                            self.AdminDashboard(rowId,userFirstName,userLastName,userEmail)
+                        elif i[5] ==2: # Check usertype == student (2)
+                            self.StudentDashboard(rowId,userFirstName,userLastName,userEmail)
+                        else:
+                            print("ERROR LOGIN")
+                            errVar.set("Invalid Username or Password! Try Again.")
+
+            except TypeError as e:
+                errVar.set(e)
+                print(e)
+                return None
+
+            finally:
+                db.close()

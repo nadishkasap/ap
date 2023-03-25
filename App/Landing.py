@@ -1,5 +1,4 @@
 import tkinter.messagebox
-import mysql.connector
 import tkinter as tk
 from tkinter import *
 from Login import LoginPage
@@ -25,7 +24,7 @@ class LandingPage:
         landing_frame = Frame(landing_canvas, bg="white")
         landing_frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
 
-        heading = Label(landing_frame, text="University of Kelaniya", fg="black", bg="white")
+        heading = Label(landing_frame, text="University of Kelaniya", bg="white", fg='#560600')
         heading.config(font=('calibri 30'))
         heading.place(relx=0.2, rely=0.1)
 

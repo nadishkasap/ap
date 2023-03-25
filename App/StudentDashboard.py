@@ -42,7 +42,7 @@ class StudentDashboard:
         heading.place(relx=0.2, rely=0.2)
 
         # Quite Button
-        quit_button = Button(sup_canvas, text="X", command=sup.destroy, width=5, bg="black", pady=10, padx=3, fg="white", font=("ariel", 16, " bold"))
+        quit_button = Button(sup_frame, text="X", command=sup.destroy, width=5, bg="black", pady=10, padx=3, fg="white", font=("ariel", 16, " bold"))
         quit_button.place(relx=.98, rely=.02, anchor="ne")
 
         #Student ID
@@ -112,16 +112,6 @@ class StudentDashboard:
         for row in results:
             answer.append(row[6])
 
-        # options = []
-        # option = []
-        # for row in results:
-        #     option.append(row[2])
-        #     option.append(row[3])
-        #     option.append(row[4])
-        #     option.append(row[5])
-        #
-        # for row in results:
-        #     options.append(option)
         options = []
         tempOptions = []
         for row2 in results:

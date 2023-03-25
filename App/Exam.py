@@ -56,7 +56,6 @@ class Exam:
         # sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
         # sp.place(relx=0.4, rely=0.85)
 
-
         # set question number to 0
         self.q_no = 0
 
@@ -85,10 +84,6 @@ class Exam:
 
         sup.mainloop()
 
-
-    # This method is used to display the result
-    # It counts the number of correct and wrong answers
-    # and then display them at the end as a message Box
     def display_result(self):
 
         # calculates the wrong count
@@ -125,7 +120,6 @@ class Exam:
         resultLable.config(font=('arial 14'))
         resultLable.place(relx=0.5, rely=.5, anchor=CENTER)
 
-
         self.afterExam()
 
     def afterExam(self):
@@ -139,12 +133,6 @@ class Exam:
             # if the option is correct it return true
             return True
 
-    # This method is used to check the answer of the
-    # current question by calling the check_ans and question no.
-    # if the question is correct it increases the count by 1
-    # and then increase the question number by 1. If it is last
-    # question then it calls display result to show the message box.
-    # otherwise shows next question.
     def next_btn(self):
 
         # Check if the answer is correct
@@ -168,13 +156,6 @@ class Exam:
             self.display_question()
             self.display_options()
 
-    # This method shows the two buttons on the screen.
-    # The first one is the next_button which moves to next question
-    # It has properties like what text it shows the functionality,
-    # size, color, and property of text displayed on button. Then it
-    # mentions where to place the button on the screen. The second
-    # button is the exit button which is used to close the GUI without
-    # completing the quiz.
     def buttons(self):
 
         # The first button is the Next button to move to the
@@ -192,10 +173,6 @@ class Exam:
         # placing the Quit button on the screen
         quit_button.place(x=600, y=330)
 
-    # This method deselect the radio button on the screen
-    # Then it is used to display the options available for the current
-    # question which we obtain through the question number and Updates
-    # each of the options for the current question of the radio button.
     def completeExam(self):
         quiz_frame.destroy()
     def display_options(self):
@@ -221,10 +198,6 @@ class Exam:
         q_no.place(x=70, y=50)
 
 
-    # This method shows the radio buttons to select the Question
-    # on the screen at the specified position. It also returns a
-    # list of radio button which are later used to add the options to
-    # them.
     def radio_buttons(self):
 
         # initialize the list with an empty list of options

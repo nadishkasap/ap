@@ -66,7 +66,7 @@ class Register(object):
         self.passW.place(relx=0.32, rely=0.6)
 
         global errVar
-        errVar = StringVar()
+        errVar = StringVar(sup)
         errMessage = Label(sup_frame, textvariable=errVar, fg="red", bg="white")
         errMessage.config(font=('calibri 12 bold'))
         errMessage.place(relx=0.21, rely=0.7)
@@ -92,10 +92,21 @@ class Register(object):
         passW = self.passW.get()
         email = self.email.get()
 
-        db = self.database('localhost', 'root', '', 'quiz')
-        db.connect()
-        cursor = db.connection.cursor()
-        insertQuery = """INSERT INTO user (fname, lname, email,passW,userType) VALUES (%s, %s, %s,%s,%s)"""
-        val = (fname, lname, email, passW, 2)
-        cursor.execute(insertQuery, val)
-        db.connection.commit()
+        if fname == '' or lname =='' or passW == '' or email == '':
+            errVar.set("Please fill all the fields!")
+        else:
+
+            try:
+                db = self.database('localhost', 'root', '', 'quiz')
+                conn =db.connect()
+                cursor = db.connection.cursor()
+                insertQuery = """INSERT INTO user (fname, lname, email,passW,userType) VALUES (%s, %s, %s,%s,%s)"""
+                val = (fname, lname, email, passW, 2)
+                cursor.execute(insertQuery, val)
+                conn.commit()
+
+
+            except TypeError as e:
+                errVar.set(e)
+                print(e)
+                return None
