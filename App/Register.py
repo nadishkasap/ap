@@ -72,12 +72,13 @@ class Register(object):
     def signUp(self):
         fname = self.fname.get()
         lname = self.lname.get()
+        passW = self.passW.get()
         email = self.email.get()
 
         db = self.database('localhost', 'root', '', 'quiz')
         db.connect()
         cursor = db.connection.cursor()
-        insertQuery = """INSERT INTO user (fname, lname, email,user_type) VALUES (%s, %s, %s,%s)"""
-        val = (fname, lname, email,2)
+        insertQuery = """INSERT INTO user (fname, lname, email,passW,userType) VALUES (%s, %s, %s,%s,%s)"""
+        val = (fname, lname, email, passW, 2)
         cursor.execute(insertQuery, val)
         db.connection.commit()
