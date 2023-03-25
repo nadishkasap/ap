@@ -9,6 +9,24 @@ import json
 class Exam:
     def __init__(self):
 
+        global sup
+
+        sup = Tk()
+
+        # get the data from the json file
+        with open('data.json') as f:
+            data = json.load(f)
+
+        # set the question, options, and answer
+        global question, options, answer
+        question = (data['question'])
+        print(len(question))
+        options = (data['options'])
+        answer = (data['answer'])
+
+        # create an object of the Quiz Class.
+        # quiz = Exam()
+
         sup.attributes('-fullscreen', True)  # make main window full-screen
         sup.title(" Exam - LMS University of Kelaniya")
 
@@ -23,7 +41,7 @@ class Exam:
 
         #Exam heading
         heading = Label(sup_frame,  text=' EXAM: Advanced Programming ', fg="white", bg="#101357",width=60)
-        heading.config(font=('Broadway 22'))
+        heading.config(font=('Arial 22'))
         heading.place(relx=0.5, rely=.05, anchor=CENTER)
 
         ### START QUIZ FRAME ####
@@ -64,6 +82,8 @@ class Exam:
 
         # keep a counter of correct answers
         self.correct = 0
+
+        sup.mainloop()
 
 
     # This method is used to display the result
@@ -231,20 +251,5 @@ class Exam:
         # return the radio buttons
         return q_list
 
-# get the data from the json file
-with open('data.json') as f:
-    data = json.load(f)
 
-# set the question, options, and answer
-question = (data['question'])
-print(len(question))
-options = (data['options'])
-answer = (data['answer'])
 
-global sup
-
-sup = Tk()
-# create an object of the Quiz Class.
-quiz = Exam()
-
-sup.mainloop()

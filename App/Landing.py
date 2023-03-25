@@ -37,6 +37,7 @@ class LandingPage:
         heading.config(font=('calibri 30'))
         heading.place(relx=0.2, rely=0.1)
 
+        ###Quite Button
         quit_button = Button(landing_frame, text="X", command=self.landingPage.destroy,
                              width=5, bg="black",pady=10,padx=3, fg="white", font=("ariel", 16, " bold"))
         quit_button.place(relx=.98, rely=.02, anchor="ne")

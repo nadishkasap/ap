@@ -5,8 +5,6 @@ from ExamLandingPage import  ExamLandingPage
 
 class StudentDashboard:
     def __init__(self):
-        # self.root = tk.Tk()
-        # self.root.destroy()
 
         self.ExamLandingPage = ExamLandingPage
 
@@ -23,6 +21,7 @@ class StudentDashboard:
         heading = Label(sup_frame, text="Welcome!", fg="black", bg="white")
         heading.config(font=('calibri 20'))
         heading.place(relx=0.2, rely=0.1)
+
         #Student ID
         lblStudentId = Label(sup_frame, text="Student Id : ", fg="black", bg="white")
         lblStudentId.config(font=('calibri 16'))
@@ -51,11 +50,11 @@ class StudentDashboard:
 
 
         # Take Exam
-        sp = Button(sup_frame, text='Take Exam', padx=5, pady=5, width=5,  bg='green',foreground='white',command=self.startExam)
+        sp = Button(sup_frame, text='Take Exam', padx=5, pady=5, width=5,  bg='green',foreground='white',command=self.ExamLandingPage)
         sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
         sp.place(relx=0.4, rely=0.7)
 
-        self.root.mainloop()
+        sup.mainloop()
 
     def startExam(self):
         self.ExamLandingPage()
