@@ -52,9 +52,9 @@ class Exam:
         frameTextBg = "#DBE4C6"
 
         # BTN Finish Exam
-        sp = Button(sup_frame, text='Finish Exam', padx=5, pady=5, width=5,  bg='green', command=sup.destroy)
-        sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
-        sp.place(relx=0.4, rely=0.85)
+        # sp = Button(sup_frame, text='Finish Exam', padx=5, pady=5, width=5,  bg='green', command=sup.destroy)
+        # sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
+        # sp.place(relx=0.4, rely=0.85)
 
 
         # set question number to 0

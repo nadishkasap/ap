@@ -4,19 +4,11 @@ import tkinter as tk
 from tkinter import *
 from Login import LoginPage
 from Register import Register
-
-import random
-import csv
+from PIL import Image, ImageTk
 import os
 
 class LandingPage:
     def __init__(self):
-        #sup.attributes('-fullscreen', True)  # make main window full-screen
-        #sup.title(" Exam - LMS University of Kelaniya")
-
-        #sup_canvas = Canvas(sup, width=720, height=440, bg="#600")
-        #sup_canvas.pack(fill=tk.BOTH, expand=True)
-        #sup_canvas.pack()
 
         self.landingPage = tk.Tk()
         self.landingPage.attributes('-fullscreen', True)  # make main window full-screen
@@ -38,21 +30,27 @@ class LandingPage:
         heading.place(relx=0.2, rely=0.1)
 
         ###Quite Button
-        quit_button = Button(landing_frame, text="X", command=self.landingPage.destroy,
-                             width=5, bg="black",pady=10,padx=3, fg="white", font=("ariel", 16, " bold"))
+        quit_button = Button(landing_frame, text="X", command=self.landingPage.destroy, width=5, bg="black",pady=10,padx=3, fg="white", font=("ariel", 16, " bold"))
         quit_button.place(relx=.98, rely=.02, anchor="ne")
 
-        # Format the labels
+        frame = Frame(landing_canvas, width=500, height=350, bg="red")
+        frame.pack()
+        frame.place(anchor='center', relx=0.65, rely=0.5)
+
+        im = Image.open(os.getcwd()+"/images/landing_bg.jpg")
+        ph = ImageTk.PhotoImage(im)
+
+        label = Label(frame, image=ph,width=500, height=350, bg="white")
+        label.image = ph
+        label.pack()
 
 
+        adminLogin = tkinter.Button(landing_frame, text='Login to LMS', borderwidth=1, relief='solid',command=self.login, fg="green",font=('Georgia 16'))
+        adminLogin.place(x=250, y=250, width=150, height=50)
 
-        adminLogin = tkinter.Button(landing_frame, text='Login to LMS', borderwidth=1, relief='solid',command=self.login)
-        adminLogin.place(x=250, y=150, width=100, height=50)
-
-        register = tkinter.Button(landing_frame, text='Register', borderwidth=1, relief='solid',command=self.register, bg='green' )
+        register = tkinter.Button(landing_frame, text='Register', borderwidth=1, relief='solid',command=self.register, bg='green',font=('Georgia 16'), fg="white" )
         register.configure(width=16, height=1, activebackground="#33B5E5", relief=FLAT)
-        register.place(x=250, y=250, width=100, height=50)
-
+        register.place(x=250, y=350, width=150, height=50)
 
 
         self.landingPage.mainloop()
@@ -60,8 +58,6 @@ class LandingPage:
         def login(self):
             self.login()
             self.landingPage.destroy(self)
-
-
 
         def register(self):
             self.Register()

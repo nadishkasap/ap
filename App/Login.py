@@ -77,6 +77,7 @@ class LoginPage:
 
         print(results)
         if len(results) < 1:
+            print("WRONG UN PW")
             errVar.set("Invalid Username or Password! Try Again.")
         else:
             for i in results: # check if admin or student
@@ -90,6 +91,5 @@ class LoginPage:
                 elif i[5] ==2: # Check usertype == student (2)
                     self.StudentDashboard(rowId,userFirstName,userLastName,userEmail)
                 else:
+                    print("ERROR LOGIN")
                     errVar.set("Invalid Username or Password! Try Again.")
-
-LoginPage()
