@@ -55,7 +55,7 @@ class StudentDashboard:
         sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
         sp.place(relx=0.4, rely=0.7)
 
-        self.root.mainloop()
+        sup.mainloop()
 
     def startExam(self):
         self.ExamLandingPage()

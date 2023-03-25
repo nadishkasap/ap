@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import *
 from AdminDashboard import AdminDashboard
-from StudentDashboard import  StudentDashboard
+from StudentDashboard import StudentDashboard
+from Database import Database
 
 class LoginPage:
     def __init__(self):
@@ -11,6 +12,9 @@ class LoginPage:
         global sup
 
         sup = Tk()
+        self.database = Database
+        self.fname = StringVar()
+        self.passW = StringVar()
 
         sup.attributes('-fullscreen', True)  # make main window full-screen
         sup.title("Login - LMS University of Kelaniya")
@@ -33,16 +37,16 @@ class LoginPage:
         # Username
         flabel = Label(sup_frame, text="User Name", fg='black', bg='white')
         flabel.place(relx=0.21, rely=0.4)
-        fname = Entry(sup_frame, bg='#d3d3d3', fg='black')
-        fname.config(width=42)
-        fname.place(relx=0.32, rely=0.4)
+        self.fname = Entry(sup_frame, bg='#d3d3d3', fg='black',textvariable=self.fname)
+        self.fname.config(width=42)
+        self.fname.place(relx=0.32, rely=0.4)
 
         # Password
         ulabel = Label(sup_frame, text="Password", fg='black', bg='white')
         ulabel.place(relx=0.21, rely=0.5)
-        user = Entry(sup_frame, bg='#d3d3d3', fg='black')
-        user.config(width=42)
-        user.place(relx=0.32, rely=0.5)
+        self.passW = Entry(sup_frame, bg='#d3d3d3', fg='black',textvariable=self.passW)
+        self.passW.config(width=42)
+        self.passW.place(relx=0.32, rely=0.5)
 
         # Login BUTTON
         sp = Button(sup_frame, text='Log In - ADMIN', padx=5, pady=5, width=5,  bg='green', command=self.LoginClick)
@@ -58,7 +62,29 @@ class LoginPage:
         sup.mainloop()
 
     def LoginClick(self):
+        fname = self.fname.get()
+        passW = self.passW.get()
+        db = self.database('localhost', 'root', '', 'quiz')
+        db.connect()
+        cursor = db.connection.cursor()
+        insertQuery = """SELECT * FROM user where fname=%s and passW=%s and userType=1"""
+        val = (fname, passW)
+        cursor.execute(insertQuery, val)
+        results = cursor.fetchall()
+        for i in results:
+            print (i)
         self.AdminDashboard()
 
     def TemFuncClick(self):
+        fname = self.fname.get()
+        passW = self.passW.get()
+        db = self.database('localhost', 'root', '', 'quiz')
+        db.connect()
+        cursor = db.connection.cursor()
+        insertQuery = """SELECT * FROM user where fname=%s and passW=%s and userType=2"""
+        val = (fname, passW)
+        cursor.execute(insertQuery, val)
+        results = cursor.fetchall()
+        for i in results:
+            print (i)
         self.StudentDashboard()
