@@ -103,8 +103,8 @@ class Register(object):
                 insertQuery = """INSERT INTO user (fname, lname, email,passW,userType) VALUES (%s, %s, %s,%s,%s)"""
                 val = (fname, lname, email, passW, 2)
                 cursor.execute(insertQuery, val)
-                conn.commit()
-
+                db.connection.commit()
+                self.LoginPage()
 
             except TypeError as e:
                 errVar.set(e)
