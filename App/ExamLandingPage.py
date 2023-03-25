@@ -49,5 +49,3 @@ class ExamLandingPage:
         btnStartExam.place(relx=0.31, rely=0.8)
 
         window.mainloop()
-
-ExamLandingPage()

@@ -16,7 +16,7 @@ class LoginPage:
         self.fname = StringVar()
         self.passW = StringVar()
 
-        sup.attributes('-fullscreen', True)  # make main window full-screen
+        #sup.attributes('-fullscreen', True)  # make main window full-screen
         sup.title("Login - LMS University of Kelaniya")
         sup_canvas = Canvas(sup, width=720, height=440, bg="#600")
         sup_canvas.pack(fill=tk.BOTH, expand=True)
@@ -48,43 +48,44 @@ class LoginPage:
         self.passW.config(width=42)
         self.passW.place(relx=0.32, rely=0.5)
 
+        global errVar
+        errVar = StringVar()
+        errMessage = Label(sup_frame, textvariable=errVar, fg="red", bg="white")
+        errMessage.config(font=('calibri 10'))
+        errMessage.place(relx=0.2, rely=0.6)
+
         # Login BUTTON
-        sp = Button(sup_frame, text='Log In - ADMIN', padx=5, pady=5, width=5,  bg='green', command=self.LoginClick)
+        sp = Button(sup_frame, text='Log in', padx=5, pady=5, width=5,  bg='green', command=self.LoginClick)
         sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
         sp.place(relx=0.35, rely=0.7)
-
-        # Login BUTTON TEMPORARY
-        sp = Button(sup_frame, text='Log In TEMP - Student', padx=5, pady=5, width=5, bg='green', command=self.TemFuncClick)
-        sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
-        sp.place(relx=0.35, rely=.8)
-
 
         sup.mainloop()
 
     def LoginClick(self):
-        fname = self.fname.get()
-        passW = self.passW.get()
-        db = self.database('localhost', 'root', '', 'quiz')
-        db.connect()
-        cursor = db.connection.cursor()
-        insertQuery = """SELECT * FROM user where fname=%s and passW=%s and userType=1"""
-        val = (fname, passW)
-        cursor.execute(insertQuery, val)
-        results = cursor.fetchall()
-        for i in results:
-            print (i)
-        self.AdminDashboard()
 
-    def TemFuncClick(self):
         fname = self.fname.get()
         passW = self.passW.get()
+        print(fname, " | ", passW)
         db = self.database('localhost', 'root', '', 'quiz')
         db.connect()
+
         cursor = db.connection.cursor()
-        insertQuery = """SELECT * FROM user where fname=%s and passW=%s and userType=2"""
+        selectQuery = """SELECT * FROM user where fname=%s and passW=%s"""
         val = (fname, passW)
-        cursor.execute(insertQuery, val)
+        cursor.execute(selectQuery, val)
         results = cursor.fetchall()
-        for i in results:
-            print (i)
-        self.StudentDashboard()
+
+        print(results)
+        if len(results) < 1:
+            errVar.set("Invalid Username or Password! Try Again.")
+        else:
+            for i in results: # check if admin or student
+                if i[5] == 1: # Check usertype == admin (1)
+                    self.AdminDashboard()
+                elif i[5] ==2:# Check usertype == student (2)
+                    self.StudentDashboard()
+                else:
+                    errVar.set("Invalid Username or Password! Try Again.")
+
+
+LoginPage()
