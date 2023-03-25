@@ -6,19 +6,21 @@ from StudentDashboard import  StudentDashboard
 class LoginPage:
     def __init__(self):
 
-        self.root = tk.Tk()
         self.AdminDashboard = AdminDashboard
         self.StudentDashboard = StudentDashboard
 
+
         global sup
         sup = Tk()
+
+        sup.title("Login - LMS University of Kelaniya")
         sup_canvas = Canvas(sup, width=720, height=440, bg="#600")
         sup_canvas.pack()
 
         sup_frame = Frame(sup_canvas, bg="white")
         sup_frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
 
-        heading = Label(sup_frame, text="Registration Page", fg="black", bg="white")
+        heading = Label(sup_frame, text="Login Page", fg="black", bg="white")
         heading.config(font=('calibri 40'))
         heading.place(relx=0.2, rely=0.1)
 
@@ -47,7 +49,7 @@ class LoginPage:
         sp.place(relx=0.35, rely=.8)
 
 
-        self.root.mainloop()
+        sup.mainloop()
 
     def LoginClick(self):
         self.AdminDashboard()

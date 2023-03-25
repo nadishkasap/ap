@@ -1,6 +1,6 @@
-import tkinter as tk
 import tkinter.messagebox
 import mysql.connector
+import tkinter as tk
 from tkinter import *
 from Login import LoginPage
 from Register import Register
@@ -12,14 +12,19 @@ import os
 class LandingPage:
     def __init__(self):
 
-        global landingPage
+        #global landingPage
 
-        landingPage = Tk()
+        # self.root = tk.Tk()
+        # self.root.destroy()
+
+        self.landingPage = tk.Tk()
 
         self.login = LoginPage
         self.register = Register
 
-        landing_canvas = Canvas(landingPage, width=720, height=440, bg="#600")
+        self.landingPage.title("Langing Page - LMS University of Kelaniya")
+
+        landing_canvas = Canvas(self.landingPage, width=720, height=440, bg="#600")
         landing_canvas.pack()
 
         landing_frame = Frame(landing_canvas, bg="white")
@@ -42,14 +47,17 @@ class LandingPage:
 
 
 
-        landingPage.mainloop()
+        self.landingPage.mainloop()
 
         def login(self):
             self.login()
+            self.landingPage.destroy(self)
+
 
 
         def register(self):
             self.Register()
+            self.landingPage.withdraw(self)
 
 
 LandingPage()

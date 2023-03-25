@@ -5,6 +5,9 @@ from CsvUploader import CsvUpload
 
 class AdminDashboard:
     def __init__(self):
+        self.root = tk.Tk()
+        self.root.destroy()
+
         global sup
         sup = Tk()
         self.CsvUploader = CsvUpload

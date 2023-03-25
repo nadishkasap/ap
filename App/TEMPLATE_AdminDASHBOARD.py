@@ -4,10 +4,12 @@ from Login import LoginPage
 
 class Register:
     def __init__(self):
-        self.root = tk.Tk()
-        self.root.destroy()
+
+
         global sup
+
         sup = Tk()
+        sup.title(" - LMS University of Kelaniya")
 
         fname = StringVar()
         uname = StringVar()

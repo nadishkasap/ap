@@ -3,8 +3,12 @@ import csv
 
 class Admin:
     def __init__(self):
+        self.root = tk.Tk()
+        self.root.destroy()
 
         self.root = tk.Tk()
+        self.root.title("Admin - LMS University of Kelaniya")
+
         self.root.geometry("550x300")
         self.f3 = tk.Frame(self.root, bg='green')
         self.f1.place(x=0, y=0, width=800, height=400)

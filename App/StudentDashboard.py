@@ -1,11 +1,18 @@
 import tkinter as tk
 from tkinter import *
+#from Exam import ExamLandingPage
+from ExamLandingPage import  ExamLandingPage
+
 class StudentDashboard:
     def __init__(self):
-        self.root = tk.Tk()
-        self.root.destroy()
+        # self.root = tk.Tk()
+        # self.root.destroy()
+
+        self.ExamLandingPage = ExamLandingPage
+
         global sup
         sup = Tk()
+        sup.title("Student Dashboard - LMS University of Kelaniya")
 
         sup_canvas = Canvas(sup, width=720, height=440, bg="#600")
         sup_canvas.pack()
@@ -44,11 +51,11 @@ class StudentDashboard:
 
 
         # Take Exam
-        sp = Button(sup_frame, text='Take Exam', padx=5, pady=5, width=5,  bg='green',foreground='white')
+        sp = Button(sup_frame, text='Take Exam', padx=5, pady=5, width=5,  bg='green',foreground='white',command=self.startExam)
         sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
         sp.place(relx=0.4, rely=0.7)
 
-
         self.root.mainloop()
 
-StudentDashboard()
+    def startExam(self):
+        self.ExamLandingPage()
