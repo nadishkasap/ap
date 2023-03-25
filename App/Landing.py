@@ -11,13 +11,15 @@ import os
 
 class LandingPage:
     def __init__(self):
+        #sup.attributes('-fullscreen', True)  # make main window full-screen
+        #sup.title(" Exam - LMS University of Kelaniya")
 
-        #global landingPage
-
-        # self.root = tk.Tk()
-        # self.root.destroy()
+        #sup_canvas = Canvas(sup, width=720, height=440, bg="#600")
+        #sup_canvas.pack(fill=tk.BOTH, expand=True)
+        #sup_canvas.pack()
 
         self.landingPage = tk.Tk()
+        self.landingPage.attributes('-fullscreen', True)  # make main window full-screen
 
         self.login = LoginPage
         self.register = Register
@@ -25,6 +27,7 @@ class LandingPage:
         self.landingPage.title("Langing Page - LMS University of Kelaniya")
 
         landing_canvas = Canvas(self.landingPage, width=720, height=440, bg="#600")
+        landing_canvas.pack(fill=tk.BOTH, expand=True)
         landing_canvas.pack()
 
         landing_frame = Frame(landing_canvas, bg="white")
@@ -33,6 +36,10 @@ class LandingPage:
         heading = Label(landing_frame, text="University of Kelaniya", fg="black", bg="white")
         heading.config(font=('calibri 30'))
         heading.place(relx=0.2, rely=0.1)
+
+        quit_button = Button(landing_frame, text="X", command=self.landingPage.destroy,
+                             width=5, bg="black",pady=10,padx=3, fg="white", font=("ariel", 16, " bold"))
+        quit_button.place(relx=.98, rely=.02, anchor="ne")
 
         # Format the labels
 

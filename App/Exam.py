@@ -16,6 +16,8 @@ class Exam:
         sup_canvas.pack(fill=tk.BOTH, expand=True)
         sup_canvas.pack()
 
+        global sup_frame
+
         sup_frame = Frame(sup_canvas, bg="white")
         sup_frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
 
@@ -32,7 +34,7 @@ class Exam:
         frameTextBg = "#DBE4C6"
 
         # BTN Finish Exam
-        sp = Button(sup_frame, text='Finish Exam', padx=5, pady=5, width=5,  bg='green')
+        sp = Button(sup_frame, text='Finish Exam', padx=5, pady=5, width=5,  bg='green', command=sup.destroy)
         sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
         sp.place(relx=0.4, rely=0.85)
 
@@ -78,8 +80,31 @@ class Exam:
         score = int(self.correct / self.data_size * 100)
         result = f"Score: {score}%"
 
-        # Shows a message box to display the result
-        messageBox.showinfo("Result", f"{result}\n{correct}\n{wrong}")
+        quiz_frame.destroy()
+
+        if(score<50):
+            passFailLabel = "Sorry you failed! Try again."
+            passFailColor = 'red'
+        else:
+            passFailLabel = "Congratulations! You pass the exam."
+            passFailColor = 'green'
+        # Exam heading
+        heading = Label(sup_frame, text=passFailLabel, fg=passFailColor, bg="white")
+        heading.config(font=('Broadway 22'))
+        heading.place(relx=0.5, rely=.2, anchor=CENTER)
+
+        correctLable = Label(sup_frame, text=correct,  bg="white")
+        correctLable.config(font=('arial 14'))
+        correctLable.place(relx=0.5, rely=.3, anchor=CENTER)
+
+        wrongLable = Label(sup_frame, text=wrong, bg="white")
+        wrongLable.config(font=('arial 14'))
+        wrongLable.place(relx=0.5, rely=.4, anchor=CENTER)
+
+        resultLable = Label(sup_frame, text=result, bg="white")
+        resultLable.config(font=('arial 14'))
+        resultLable.place(relx=0.5, rely=.5, anchor=CENTER)
+
 
         self.afterExam()
 
