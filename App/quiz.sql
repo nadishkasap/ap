@@ -29,7 +29,7 @@ CREATE TABLE `question` (
   `answer2` varchar(255) DEFAULT NULL,
   `answer3` varchar(255) DEFAULT NULL,
   `answert4` varchar(255) DEFAULT NULL,
-  `correctAnswer` varchar(255) DEFAULT NULL,
+  `correctAnswer` int DEFAULT NULL,
   `examType` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -41,7 +41,7 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` VALUES (1,'And operator able to perform bitwise shifts is coded as (Choose two.)','--','++','<<','>>','<<','e1'),(2,'The following expression  1+-2 is:','equal to 1','invalid','equal to 2','equal to -1','equal to 2','e1'),(3,'Which of the following literals reflect the value given as 34.23? (Choose two.)','3.42E+05','3.42E+01','3.42E-03','3.42E+05','3.42E-03','e1'),(4,'Which of the following statements are true? (Choose two.)','Python strings are actually lists','Python strings can be concatenated','Python strings can be sliced like lists',' Python strings are mutable','Python strings can be sliced like lists','e1'),(5,'Which of the following sentences are true? (Choose two.)','Lists may not be stored inside tuples',' Tuples may be stored inside lists','Tuples may not be stored inside tuples','Lists may be stored inside lists',' Tuples may be stored inside lists','e1');
+INSERT INTO `question` VALUES (1,'And operator able to perform bitwise shifts is coded as (Choose two.)','--','++','<<','>>',2,'e1'),(2,'The following expression  1+-2 is:','equal to 1','invalid','equal to 2','equal to -1',1,'e1'),(3,'Which of the following literals reflect the value given as 34.23? (Choose two.)','3.42E+05','3.42E+01','3.42E-03','3.42E+05',4,'e1'),(4,'Which of the following statements are true? (Choose two.)','Python strings are actually lists','Python strings can be concatenated','Python strings can be sliced like lists',' Python strings are mutable',3,'e1'),(5,'Which of the following sentences are true? (Choose two.)','Lists may not be stored inside tuples',' Tuples may be stored inside lists','Tuples may not be stored inside tuples','Lists may be stored inside lists',2,'e1');
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,6 +59,7 @@ CREATE TABLE `user` (
   `email` varchar(255) DEFAULT NULL,
   `passW` varchar(255) DEFAULT NULL,
   `userType` int DEFAULT NULL,
+  `marks` float DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -69,7 +70,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Sheyan','Suraweera','sheyanns@gmail.com','123',1),(2,'gayan','Perera','gayan@gmail.com','1234',2);
+INSERT INTO `user` VALUES (1,'Sheyan','Suraweera','sheyanns@gmail.com','123',1,NULL),(2,'gayan','Perera','gayan@gmail.com','1234',2,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -82,4 +83,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-25 23:18:11
+-- Dump completed on 2023-03-26  0:58:08
