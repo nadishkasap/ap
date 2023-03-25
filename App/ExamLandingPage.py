@@ -27,25 +27,19 @@ class ExamLandingPage:
 
         para = Label(ex_frame, bg='white',text="Welcome to the online exam for [course name]. Please read the following instructions carefully before starting the exam: The exam is timed and will be available for [duration]. You are expected to complete the exam within this time limit.", wraplength=600)
         para.config(font=('Arial 14'))
-        para.place(relx=0.5, rely=.2, anchor=CENTER)
-
+        para.place(relx=0.5, rely=.3, anchor=CENTER)
 
         lblExamDuration = Label(ex_frame, text="Exam Duration: 1h", fg="brown", bg="white")
-        lblExamDuration.config(font=('calibri 12'))
-        lblExamDuration.place(relx=0.2, rely=0.55)
+        lblExamDuration.config(font=('calibri 24 bold'))
+        lblExamDuration.place(relx=0.2, rely=0.4)
 
         lblExamType = Label(ex_frame, text="Exam Type: MCQ", fg="brown", bg="white")
-        lblExamType.config(font=('calibri 12'))
-        lblExamType.place(relx=0.2, rely=0.65)
+        lblExamType.config(font=('calibri 24 bold'))
+        lblExamType.place(relx=0.2, rely=0.5)
 
-        #btnStartExam = Button(ex_frame, text="Start Exam", command=self.Exam)
-        #img = PhotoImage(file="D:/SEM 4/AP_Project/ap/App/images/btn-start-exam.png")
-        #btnStartExam.config(image=img,pady=10)
-        #btnStartExam.place(relx=0.31, rely=0.8)
-
-        btnStartExam = Button(ex_frame, text='Start Exam', padx=5, pady=5, width=30, bg='green',fg='white', command=self.Exam)
+        btnStartExam = Button(ex_frame, text='Start Exam ->', padx=4, pady=4, width=30, bg='green',fg='white', command=self.Exam)
         btnStartExam.configure(width=30, height=2, activebackground="#33B5E5", relief=FLAT)
-        btnStartExam.config(font=('calibri 12 bold'))
+        btnStartExam.config(font=('calibri 16 bold'))
         btnStartExam.place(relx=0.31, rely=0.8)
 
         window.mainloop()
