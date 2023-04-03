@@ -22,7 +22,7 @@ class Exam:
         question = (data['question'])
         print(len(question))
         options = (data['options'])
-        answer = (data['answer'])
+        self.answer = (data['answer'])
 
         # create an object of the Quiz Class.
         # quiz = Exam()
@@ -120,6 +120,11 @@ class Exam:
         resultLable.config(font=('arial 14'))
         resultLable.place(relx=0.5, rely=.5, anchor=CENTER)
 
+        #BTN Finish Exam
+        sp = Button(sup_frame, text='Finish Exam', padx=5, pady=5, width=5,  bg='green', command=sup.destroy)
+        sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
+        sp.place(relx=0.4, rely=0.85)
+
         self.afterExam()
 
     def afterExam(self):
@@ -129,7 +134,10 @@ class Exam:
     def check_ans(self, q_no):
 
         # checks for if the selected option is correct
-        if self.opt_selected.get() == answer[q_no]:
+        print(self.opt_selected, " - ",  self.opt_selected)
+        print(self.answer[q_no], " - ", self.answer[q_no])
+
+        if self.opt_selected.get() == self.answer[q_no]:
             # if the option is correct it return true
             return True
 
@@ -223,6 +231,4 @@ class Exam:
 
         # return the radio buttons
         return q_list
-
-
 

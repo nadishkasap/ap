@@ -26,7 +26,7 @@ class ExamLandingPage:
         quit_button = Button(ex_canvas, text="X", command=window.destroy,  width=5, bg="black", pady=10, padx=3, fg="white", font=("ariel", 16, " bold"))
         quit_button.place(relx=.98, rely=.02, anchor="ne")
 
-        para = Label(ex_frame, bg='white',text="Welcome to the online exam for [course name]. Please read the following instructions carefully before starting the exam: The exam is timed and will be available for [duration]. You are expected to complete the exam within this time limit.", wraplength=600)
+        para = Label(ex_frame, bg='white',text="Welcome to the online exam for Advance Programming. Please read the following instructions carefully before starting the exam: The exam is timed and will be available for [1 Hour]. You are expected to complete the exam within this time limit.", wraplength=600)
         para.config(font=('Arial 14'))
         para.place(relx=0.5, rely=.3, anchor=CENTER)
 
