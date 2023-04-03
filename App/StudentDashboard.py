@@ -1,19 +1,29 @@
 import tkinter as tk
 from tkinter import *
-# from Exam import ExamLandingPage
 from ExamLandingPage import ExamLandingPage
+from StudentResults import StudentResults
+from tkinter import messagebox
 from Database import Database
 import json
 
 
 class StudentDashboard:
     def __init__(self,rowId,userFirstName,userLastName,userEmail):
+
+
         self.ExamLandingPage = ExamLandingPage
+        self.StudentResults = StudentResults
         self.database = Database
+
         self.rowId = rowId
         self.userFirstName = userFirstName
         self.userLastName = userLastName
         self.userEmail = userEmail
+
+        global examIDvar
+        global selectedExam
+
+        print("row ID", self.rowId)
 
         self.userDictionary = {
             "userId": self.rowId,
@@ -21,8 +31,9 @@ class StudentDashboard:
             "userLastName": self.userLastName,
             "userEmail": self.userEmail
         }
+
         global supwin
-        supwin = Tk()
+        supwin = tk.Tk()
         supwin.attributes('-fullscreen', True)
         supwin.title("Student Dashboard - LMS University of Kelaniya")
 
@@ -37,8 +48,8 @@ class StudentDashboard:
         heading.config(font=('calibri 40'))
         heading.place(relx=0.2, rely=0.1)
 
-        heading = Label(sup_frame, text="Welcome, " + self.userFirstName, fg="black", bg="white")
-        heading.config(font=('calibri 15'))
+        heading = Label(sup_frame, text="welcome, " + self.userFirstName, fg="blue", bg="white")
+        heading.config(font=('calibri 15 bold'))
         heading.place(relx=0.2, rely=0.2)
 
         # Quite Button
@@ -67,16 +78,16 @@ class StudentDashboard:
         lblStudentMarks.config(font=('calibri 16'))
         lblStudentMarks.place(relx=0.2, rely=0.5)
 
-        valStudentMarks = Label(sup_frame, text=" - ", fg="black", bg="white")
-        valStudentMarks.config(font=('calibri 16'))
+        valStudentMarks = Button(sup_frame, text=" View marks ", command=self.viewMarks)
+        valStudentMarks.config(font=('calibri 14'))
         valStudentMarks.place(relx=0.5, rely=0.5)
 
 
  		# Take Exam
-        sp = Button(sup_frame, text='Take Exam ->', padx=4, pady=4, width=5,  bg='green',foreground='white',command=self.ExamLandingPage)
+        sp = Button(sup_frame, text='Take Exam ->', padx=4, pady=4, width=5,  bg='green',foreground='white',command=self.startExam)
         sp.configure(width=30, height=2, activebackground="#33B5E5", relief=FLAT)
         sp.config(font=('calibri 16 bold'))
-        sp.place(relx=0.31, rely=0.8)        
+        sp.place(relx=0.31, rely=1.2)
 
         sp.place(relx=0.4, rely=0.7)
         lblSelectExam = Label(sup_frame, text="Select Exam", fg="black", bg="white")
@@ -90,52 +101,77 @@ class StudentDashboard:
         ]
 
         #DropDown
+
         examIDVar = StringVar(supwin)
         examIDVar.set(ExamIds[0])  # default value
 
-        OptionList = OptionMenu(sup_frame, examIDVar, *ExamIds)
+        def callback(selection):
+            self.selectedExam = selection
+            print(self.selectedExam)
+            sp.config(text="Take exam: "+self.selectedExam)
+
+        OptionList = OptionMenu(sup_frame, examIDVar, *ExamIds, command=callback)
         OptionList.place(relx=0.5, rely=0.6)
 
-        db = self.database('localhost', 'root', '', 'quiz')
-        db.connect()
-        cursor = db.connection.cursor()
-        examType = 'e1'
-        selectQuery = "SELECT * FROM question where examType=%s"
-        val = (examType,)
-        cursor.execute(selectQuery, val)
-        results = cursor.fetchall()
-        question = []
-        for row in results:
-            question.append(row[1])
-
-        answer = []
-        for row in results:
-            answer.append(row[6])
-
-        options = []
-        tempOptions = []
-        for row2 in results:
-            tempOptions.append(row2[2])
-            tempOptions.append(row2[3])
-            tempOptions.append(row2[4])
-            tempOptions.append(row2[5])
-
-            options.append(tempOptions)
-            tempOptions = []
-
-        data = {
-            "question": question,
-            "answer": answer,
-            "options": options
-        }
-        data2 = json.dumps(data)
-        f = open("data.json", "w+")
-        #f = open("data2.json", "w+")
-        f.write(data2)
-        f.close()
+        global errVar
+        errVar = StringVar(supwin)
+        errMessage = Label(sup_frame, textvariable=errVar, fg="red", bg="white")
+        errMessage.config(font=('calibri 12 bold'))
+        errMessage.place(relx=0.5, rely=0.65)
 
         supwin.mainloop()
 
+    def viewMarks(self):
+        StudentResults(self.rowId, self.userFirstName, self.userLastName)
+
     def startExam(self):
-        #sup.destroy(self)
-        self.ExamLandingPage()
+
+        try:
+            print("In Try")
+            print(self.selectedExam)
+
+        except AttributeError:
+            errVar.set("Please select an exam")
+        finally:
+            print("Else")
+            # Get Exam details from the DB and save to json file.
+            db = self.database('localhost', 'root', '', 'quiz')
+            db.connect()
+            cursor = db.connection.cursor()
+            examType = self.selectedExam
+            selectQuery = "SELECT * FROM question where examType=%s"
+            print(selectQuery)
+            val = (examType,)
+            cursor.execute(selectQuery, val)
+            results = cursor.fetchall()
+            question = []
+            for row in results:
+                question.append(row[1])
+
+            answer = []
+            for row in results:
+                answer.append(row[6])
+
+            options = []
+            tempOptions = []
+            for row2 in results:
+                tempOptions.append(row2[2])
+                tempOptions.append(row2[3])
+                tempOptions.append(row2[4])
+                tempOptions.append(row2[5])
+
+                options.append(tempOptions)
+                tempOptions = []
+
+            data = {
+                "question": question,
+                "answer": answer,
+                "options": options
+            }
+            data2 = json.dumps(data)
+            f = open("data.json", "w+")
+            # f = open("data2.json", "w+")
+            f.write(data2)
+            f.close()
+
+            self.ExamLandingPage(self.rowId, self.userFirstName, self.userLastName, self.userEmail, self.selectedExam)

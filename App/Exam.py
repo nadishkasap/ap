@@ -1,13 +1,19 @@
 import tkinter as tk
 from tkinter import *
-# and import messagebox as mb from tkinter
-from tkinter import messagebox as messageBox
+from Database import Database
 
-# import json to use json file for data
 import json
 
 class Exam:
-    def __init__(self):
+    def __init__(self,rowId,userFirstName,userLastName,userEmail,examIDvar):
+
+        self.rowId = rowId
+        self.userFirstName = userFirstName
+        self.userLastName = userLastName
+        self.userEmail = userEmail
+        self.examIDvar = examIDvar
+
+        self.database = Database
 
         global sup
 
@@ -19,8 +25,11 @@ class Exam:
 
         # set the question, options, and answer
         global question, options, answer
+
         question = (data['question'])
+
         print(len(question))
+
         options = (data['options'])
         self.answer = (data['answer'])
 
@@ -39,10 +48,12 @@ class Exam:
         sup_frame = Frame(sup_canvas, bg="white")
         sup_frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
 
+
         #Exam heading
         heading = Label(sup_frame,  text=' EXAM: Advanced Programming ', fg="white", bg="#101357",width=60)
         heading.config(font=('Arial 22'))
         heading.place(relx=0.5, rely=.05, anchor=CENTER)
+        heading.config(text=self.examIDvar)
 
         ### START QUIZ FRAME ####
         global  quiz_frame
@@ -64,7 +75,8 @@ class Exam:
 
         # opt_selected holds an integer value which is used for
         # selected option in a question.
-        self.opt_selected = IntVar()
+        self.opt_selected = IntVar(sup)
+        self.opt_selected.set(0)
 
         # displaying radio button for the current question and used to
         # display options for the current question
@@ -96,13 +108,16 @@ class Exam:
         result = f"Score: {score}%"
 
         quiz_frame.destroy()
+        global examStatus
 
         if(score<50):
             passFailLabel = "Sorry you failed! Try again."
             passFailColor = 'red'
+            examStatus = "Fail"
         else:
             passFailLabel = "Congratulations! You pass the exam."
             passFailColor = 'green'
+            examStatus = "Pass"
         # Exam heading
         heading = Label(sup_frame, text=passFailLabel, fg=passFailColor, bg="white")
         heading.config(font=('Broadway 22'))
@@ -125,17 +140,29 @@ class Exam:
         sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
         sp.place(relx=0.4, rely=0.85)
 
+        #Saving the results
+
+        try:
+            db = self.database('localhost', 'root', '', 'quiz')
+            conn = db.connect()
+            cursor = db.connection.cursor()
+            insertQuery = """INSERT INTO exam_marks (user_id,exam_id,marks,Status) VALUES (%s, %s, %s,%s)"""
+            val = (self.rowId,self.examIDvar, score, examStatus)
+            cursor.execute(insertQuery, val)
+            db.connection.commit()
+
+        except ConnectionError as e:
+            print(e)
+
         self.afterExam()
 
     def afterExam(self):
-        print("after Exam")
+        print("after Exam Saving Results to ")
+
+
 
     # This method checks the Answer after we click on Next.
     def check_ans(self, q_no):
-
-        # checks for if the selected option is correct
-        print(self.opt_selected, " - ",  self.opt_selected)
-        print(self.answer[q_no], " - ", self.answer[q_no])
 
         if self.opt_selected.get() == self.answer[q_no]:
             # if the option is correct it return true
@@ -205,7 +232,6 @@ class Exam:
         # placing the option on the screen
         q_no.place(x=70, y=50)
 
-
     def radio_buttons(self):
 
         # initialize the list with an empty list of options
@@ -217,11 +243,13 @@ class Exam:
         # adding the options to the list
         while len(q_list) < 4:
             # setting the radio button properties
+            print("opt_selected",self.opt_selected)
             radio_btn = Radiobutton(quiz_frame, text=" ", variable=self.opt_selected,
                                     value=len(q_list) + 1, font=("ariel", 14),bg=frameTextBg)
 
             # adding the button to the list
             q_list.append(radio_btn)
+            print(q_list)
 
             # placing the button
             radio_btn.place(x=100, y=y_pos)
@@ -231,4 +259,3 @@ class Exam:
 
         # return the radio buttons
         return q_list
-

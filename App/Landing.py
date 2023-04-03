@@ -9,15 +9,17 @@ import os
 class LandingPage:
     def __init__(self):
 
-        self.landingPage = tk.Tk()
-        self.landingPage.attributes('-fullscreen', True)  # make main window full-screen
+        global landingPage
+
+        landingPage = tk.Tk()
+        landingPage.attributes('-fullscreen', True)  # make main window full-screen
 
         self.login = LoginPage
         self.register = Register
 
-        self.landingPage.title("Langing Page - LMS University of Kelaniya")
+        landingPage.title("Langing Page - LMS University of Kelaniya")
 
-        landing_canvas = Canvas(self.landingPage, width=720, height=440, bg="#600")
+        landing_canvas = Canvas(landingPage, width=720, height=440, bg="#600")
         landing_canvas.pack(fill=tk.BOTH, expand=True)
         landing_canvas.pack()
 
@@ -29,7 +31,7 @@ class LandingPage:
         heading.place(relx=0.2, rely=0.1)
 
         ###Quite Button
-        quit_button = Button(landing_frame, text="X", command=self.landingPage.destroy, width=5, bg="black",pady=10,padx=3, fg="white", font=("ariel", 16, " bold"))
+        quit_button = Button(landing_frame, text="X", command=landingPage.destroy, width=5, bg="black",pady=10,padx=3, fg="white", font=("ariel", 16, " bold"))
         quit_button.place(relx=.98, rely=.02, anchor="ne")
 
         frame = Frame(landing_canvas, width=500, height=350, bg="red")
@@ -52,15 +54,17 @@ class LandingPage:
         register.place(x=250, y=350, width=150, height=50)
 
 
-        self.landingPage.mainloop()
+        landingPage.mainloop()
 
         def login(self):
+            landingPage.destroy()
             self.login()
-            self.landingPage.destroy(self)
+
 
         def register(self):
+            landingPage.destroy()
             self.Register()
-            self.landingPage.withdraw(self)
+
 
 
 LandingPage()

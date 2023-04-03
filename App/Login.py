@@ -11,7 +11,7 @@ class LoginPage:
         self.StudentDashboard = StudentDashboard
         global sup
 
-        sup = Tk()
+        sup = tk.Tk()
         self.database = Database
         self.fname = StringVar()
         self.passW = StringVar()
@@ -54,7 +54,7 @@ class LoginPage:
         errMessage.place(relx=0.21, rely=0.6)
 
         # Login BUTTON
-        sp = Button(sup_frame, text='Log in', padx=1, pady=1, width=5,  bg='green', command=self.LoginClick)
+        sp = Button(sup_frame, text='Log in', padx=1, pady=1, width=5,fg="white" , bg='green', command=self.LoginClick)
         sp.configure(width=20, height=2, activebackground="#33B5E5", relief=FLAT)
         sp.config(font=('calibri 14 bold'))
         sp.place(relx=0.32, rely=0.7)
@@ -94,8 +94,10 @@ class LoginPage:
                         userEmail = i[3]
 
                         if i[5] == 1: # Check usertype == admin (1)
+                            sup.destroy()
                             self.AdminDashboard(rowId,userFirstName,userLastName,userEmail)
                         elif i[5] ==2: # Check usertype == student (2)
+                            sup.destroy()
                             self.StudentDashboard(rowId,userFirstName,userLastName,userEmail)
                         else:
                             print("ERROR LOGIN")
