@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import *
 from Database import Database
+from tkinter import ttk
+
 
 
 
@@ -43,5 +45,31 @@ class StudentResults:
         valStudentId = Label(sup_frame, text=self.rowId, fg="black", bg="white")
         valStudentId.config(font=('calibri 16'))
         valStudentId.place(relx=0.5, rely=0.3)
+
+        db = self.database('localhost', 'root', '', 'quiz')
+        db.connect()
+        cursor = db.connection.cursor()
+        selectQuery = "SELECT * FROM user INNER JOIN exam_marks ON user.id = exam_marks.user_id WHERE user.userType=2"
+        cursor.execute(selectQuery)
+        results = cursor.fetchall()
+
+        tree = ttk.Treeview(sup_frame, column=("c1", "c2", "c3", "C4", "C5"), show='headings', height=10)
+        tree.column("# 1", anchor=CENTER)
+        tree.heading("# 1", text="ID")
+        tree.column("# 2", anchor=CENTER)
+        tree.heading("# 2", text="FName")
+        tree.column("# 3", anchor=CENTER)
+        tree.heading("# 3", text="LName")
+        tree.column("# 4", anchor=CENTER)
+        tree.heading("# 4", text="Exam")
+        tree.column("# 5", anchor=CENTER)
+        tree.heading("# 5", text="Marks")
+        j = 0
+        for x in results:
+            j = j + 1
+            print(x)
+            tree.insert('', 'end', text=j, values=(j, x[1], x[2], x[9], x[10]))
+
+        tree.pack()
 
         supwin.mainloop()
