@@ -41,7 +41,7 @@ class LandingPage:
         im = Image.open(os.getcwd()+"/images/landing_bg.jpg")
         ph = ImageTk.PhotoImage(im)
 
-        label = Label(frame, image=ph,width=500, height=350, bg="white")
+        label = Label(frame, image=ph,width=550, height=350, bg="white")
         label.image = ph
         label.pack()
 

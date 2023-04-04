@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from Database import Database
+from tkinter import messagebox
 
 import json
 
@@ -120,25 +121,25 @@ class Exam:
             examStatus = "Pass"
         # Exam heading
         heading = Label(sup_frame, text=passFailLabel, fg=passFailColor, bg="white")
-        heading.config(font=('Broadway 22'))
+        heading.config(font=('Arial 22'))
         heading.place(relx=0.5, rely=.2, anchor=CENTER)
 
-        correctLable = Label(sup_frame, text=correct,  bg="white")
+        correctLable = Label(sup_frame, text=correct,  bg="white", fg="green")
         correctLable.config(font=('arial 14'))
         correctLable.place(relx=0.5, rely=.3, anchor=CENTER)
 
-        wrongLable = Label(sup_frame, text=wrong, bg="white")
+        wrongLable = Label(sup_frame, text=wrong, bg="white", fg="red")
         wrongLable.config(font=('arial 14'))
-        wrongLable.place(relx=0.5, rely=.4, anchor=CENTER)
+        wrongLable.place(relx=0.5, rely=.35, anchor=CENTER)
 
         resultLable = Label(sup_frame, text=result, bg="white")
-        resultLable.config(font=('arial 14'))
-        resultLable.place(relx=0.5, rely=.5, anchor=CENTER)
+        resultLable.config(font=('arial 20 bold'))
+        resultLable.place(relx=0.5, rely=.45, anchor=CENTER)
 
         #BTN Finish Exam
-        sp = Button(sup_frame, text='Finish Exam', padx=5, pady=5, width=5,  bg='green', command=sup.destroy)
-        sp.configure(width=15, height=1, activebackground="#33B5E5", relief=FLAT)
-        sp.place(relx=0.4, rely=0.85)
+        sp = Button(sup_frame, text='Finish Exam', padx=4, pady=4, width=30,  bg='green', fg="white", command=sup.destroy)
+        sp.configure(width=30, height=2, activebackground="#33B5E5", relief=FLAT)
+        sp.place(relx=0.4, rely=0.6)
 
         #Saving the results
 
@@ -159,14 +160,19 @@ class Exam:
     def afterExam(self):
         print("after Exam Saving Results to ")
 
-
-
     # This method checks the Answer after we click on Next.
     def check_ans(self, q_no):
 
         if self.opt_selected.get() == self.answer[q_no]:
-            # if the option is correct it return true
+            messagebox.showinfo("Correct", "Hurray! You answer is correct!")
             return True
+        else:
+            correctQuiz = "Question: "+ question[self.q_no]
+            correctAns = "Correct answer: " + options[self.q_no][self.answer[q_no]-1]
+
+            messagebox.showwarning("wrong","WRONG Answer! \n\n"+correctQuiz+"\n\n"+correctAns)
+            #print("Current Question: \t ",question[self.q_no])
+            #print("Correct Answer: \t",options[self.q_no][self.answer[q_no]-1])
 
     def next_btn(self):
 
@@ -216,6 +222,7 @@ class Exam:
         # deselecting the options
         self.opt_selected.set(0)
 
+        #print("options[self.q_no]",options[self.q_no])
         # looping over the options to be displayed for the
         # text of the radio buttons.
         for option in options[self.q_no]:
@@ -243,13 +250,14 @@ class Exam:
         # adding the options to the list
         while len(q_list) < 4:
             # setting the radio button properties
-            print("opt_selected",self.opt_selected)
+            #print("opt_selected",self.opt_selected)
+            #print("value", len(q_list) + 1)
             radio_btn = Radiobutton(quiz_frame, text=" ", variable=self.opt_selected,
                                     value=len(q_list) + 1, font=("ariel", 14),bg=frameTextBg)
 
             # adding the button to the list
             q_list.append(radio_btn)
-            print(q_list)
+            #print(q_list)
 
             # placing the button
             radio_btn.place(x=100, y=y_pos)
@@ -259,3 +267,5 @@ class Exam:
 
         # return the radio buttons
         return q_list
+
+#Exam(2,"Saman","Perera","test","FGSMIT2021")

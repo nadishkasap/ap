@@ -1,8 +1,9 @@
+import os
 import tkinter as tk
 from tkinter import *
 from CsvUploader import CsvUpload
 from StudentMarks import StudentMarks
-
+import webbrowser
 class AdminDashboard:
     def __init__(self, rowId, userFirstName, userLastName, userEmail):
 
@@ -48,15 +49,15 @@ class AdminDashboard:
         buttonViewStudentMarks.place(relx=0.31, rely=0.4)
         buttonViewStudentMarks.config(width=30)
 
-        buttonViewStudentMarks = Button(sup_frame, text="Enroll Student To Exam", fg='black', bg='white')
-        buttonViewStudentMarks.place(relx=0.31, rely=0.5)
-        buttonViewStudentMarks.config(width=30)
+        # buttonViewStudentMarks = Button(sup_frame, text="Enroll Student To Exam", fg='black', bg='white')
+        # buttonViewStudentMarks.place(relx=0.31, rely=0.5)
+        # buttonViewStudentMarks.config(width=30)
 
         uploadQuestions = Button(sup_frame, text="Upload Questions", fg='black', bg='white',command=self.csvUpload)
         uploadQuestions.place(relx=0.31, rely=0.6)
         uploadQuestions.config(width=30)
 
-        provistionDatabase = Button(sup_frame, text="Download Sample File", fg='black', bg='white')
+        provistionDatabase = Button(sup_frame, text="Download Quiz Template", fg='black', bg='white', command=self.link)
         provistionDatabase.place(relx=0.31, rely=0.7)
         provistionDatabase.config(width=30)
 
@@ -67,3 +68,10 @@ class AdminDashboard:
 
     def studentMarks(self):
         self.StudentMarks()
+
+    currentWD = os.getcwd()
+    global filepath
+    filepath = currentWD+"sample_quiz_template.csv"
+    def link(self):
+        print("filepath",filepath)
+        webbrowser.open_new(filepath)

@@ -3,9 +3,6 @@ from tkinter import *
 from Database import Database
 from tkinter import ttk
 
-
-
-
 class StudentResults:
     def __init__(self,rowId,userFirstName,userLastName):
 
@@ -54,6 +51,9 @@ class StudentResults:
         results = cursor.fetchall()
 
         tree = ttk.Treeview(sup_frame, column=("c1", "c2", "c3", "C4", "C5"), show='headings', height=10)
+        tree.pack(side=tk.BOTTOM)
+
+
         tree.column("# 1", anchor=CENTER)
         tree.heading("# 1", text="ID")
         tree.column("# 2", anchor=CENTER)
