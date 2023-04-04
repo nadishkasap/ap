@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from CsvUploader import CsvUpload
+from StudentMarks import StudentMarks
 
 class AdminDashboard:
     def __init__(self, rowId, userFirstName, userLastName, userEmail):
@@ -18,6 +19,7 @@ class AdminDashboard:
         global sup
         sup = Tk()
         self.CsvUploader = CsvUpload
+        self.StudentMarks = StudentMarks
 
         sup.attributes('-fullscreen', True)
         sup_canvas = Canvas(sup, width=720, height=440, bg="#600")
@@ -42,7 +44,7 @@ class AdminDashboard:
         quit_button = Button(sup_canvas, text="X", command=sup.destroy, width=5, bg="black", pady=10, padx=3, fg="white", font=("ariel", 16, " bold"))
         quit_button.place(relx=.98, rely=.02, anchor="ne")
 
-        buttonViewStudentMarks = Button(sup_frame, text="View Student Marks", fg='black', bg='white')
+        buttonViewStudentMarks = Button(sup_frame, text="View Student Marks", fg='black', bg='white',command=self.studentMarks)
         buttonViewStudentMarks.place(relx=0.31, rely=0.4)
         buttonViewStudentMarks.config(width=30)
 
@@ -54,7 +56,7 @@ class AdminDashboard:
         uploadQuestions.place(relx=0.31, rely=0.6)
         uploadQuestions.config(width=30)
 
-        provistionDatabase = Button(sup_frame, text="Provision Database", fg='black', bg='white')
+        provistionDatabase = Button(sup_frame, text="Download Sample File", fg='black', bg='white')
         provistionDatabase.place(relx=0.31, rely=0.7)
         provistionDatabase.config(width=30)
 
@@ -62,3 +64,6 @@ class AdminDashboard:
 
     def csvUpload(self):
         self.CsvUploader()
+
+    def studentMarks(self):
+        self.StudentMarks()
