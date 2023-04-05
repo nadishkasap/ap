@@ -33,7 +33,7 @@ class StudentMarks:
         tree.column("# 4", anchor=CENTER)
         tree.heading("# 4", text="Exam")
         tree.column("# 5", anchor=CENTER)
-        tree.heading("# 5", text="Marks")
+        tree.heading("# 5", text="Marks %")
         j=0
         for x in results:
             j=j+1

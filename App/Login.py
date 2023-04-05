@@ -9,16 +9,16 @@ class LoginPage:
 
         self.AdminDashboard = AdminDashboard
         self.StudentDashboard = StudentDashboard
-        global sup
+        global suptk
 
-        sup = tk.Tk()
+        suptk = tk.Tk()
         self.database = Database
         self.fname = StringVar()
         self.passW = StringVar()
 
-        sup.attributes('-fullscreen', True)  # make main window full-screen
-        sup.title("Login - LMS University of Kelaniya")
-        sup_canvas = Canvas(sup, width=720, height=440, bg="#600")
+        suptk.attributes('-fullscreen', True)  # make main window full-screen
+        suptk.title("Login - LMS University of Kelaniya")
+        sup_canvas = Canvas(suptk, width=720, height=440, bg="#600")
         sup_canvas.pack(fill=tk.BOTH, expand=True)
         sup_canvas.pack()
 
@@ -30,7 +30,7 @@ class LoginPage:
         heading.place(relx=0.2, rely=0.1)
 
         #Quite Button
-        quit_button = Button(sup_frame, text="X", command=sup.destroy, width=5, bg="black", pady=10, padx=3, fg="white", font=("ariel", 16, " bold"))
+        quit_button = Button(sup_frame, text="X", command=suptk.destroy, width=5, bg="black", pady=10, padx=3, fg="white", font=("ariel", 16, " bold"))
         quit_button.place(relx=.98, rely=.02, anchor="ne")
 
         # Username
@@ -48,7 +48,7 @@ class LoginPage:
         self.passW.place(relx=0.32, rely=0.5)
 
         global errVar
-        errVar = StringVar(sup)
+        errVar = StringVar(suptk)
         errMessage = Label(sup_frame, textvariable=errVar, fg="red", bg="white")
         errMessage.config(font=('calibri 12 bold'))
         errMessage.place(relx=0.21, rely=0.6)
@@ -59,7 +59,7 @@ class LoginPage:
         sp.config(font=('calibri 14 bold'))
         sp.place(relx=0.32, rely=0.7)
 
-        sup.mainloop()
+        suptk.mainloop()
 
     def LoginClick(self):
 
@@ -94,10 +94,10 @@ class LoginPage:
                         userEmail = i[3]
 
                         if i[5] == 1: # Check usertype == admin (1)
-                            sup.destroy()
+                            suptk.destroy()
                             self.AdminDashboard(rowId,userFirstName,userLastName,userEmail)
                         elif i[5] ==2: # Check usertype == student (2)
-                            sup.destroy()
+                            suptk.destroy()
                             self.StudentDashboard(rowId,userFirstName,userLastName,userEmail)
                         else:
                             print("ERROR LOGIN")

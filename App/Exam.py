@@ -164,13 +164,13 @@ class Exam:
     def check_ans(self, q_no):
 
         if self.opt_selected.get() == self.answer[q_no]:
-            messagebox.showinfo("Correct", "Hurray! You answer is correct!")
+            messagebox.showinfo("Correct", "Hurray! You answer is correct!",parent=sup)
             return True
         else:
             correctQuiz = "Question: "+ question[self.q_no]
             correctAns = "Correct answer: " + options[self.q_no][self.answer[q_no]-1]
 
-            messagebox.showwarning("wrong","WRONG Answer! \n\n"+correctQuiz+"\n\n"+correctAns)
+            messagebox.showwarning("wrong","WRONG Answer! \n\n"+correctQuiz+"\n\n"+correctAns,parent=sup)
             #print("Current Question: \t ",question[self.q_no])
             #print("Correct Answer: \t",options[self.q_no][self.answer[q_no]-1])
 
