@@ -46,12 +46,12 @@ class LandingPage:
         label.pack()
 
 
-        adminLogin = tkinter.Button(landing_frame, text='Login to LMS', borderwidth=1, relief='solid',command=self.login, fg="green",font=('Georgia 16'))
-        adminLogin.place(x=250, y=250, width=150, height=50)
+        adminLogin = tkinter.Button(landing_frame, text='Login to EMS', borderwidth=1, relief='solid',command=self.login, fg="green",font=('Georgia 16'))
+        adminLogin.place(x=250, y=250, width=200, height=50)
 
         register = tkinter.Button(landing_frame, text='Register', borderwidth=1, relief='solid',command=self.register, bg='green',font=('Georgia 16'), fg="white" )
         register.configure(width=16, height=1, activebackground="#33B5E5", relief=FLAT)
-        register.place(x=250, y=350, width=150, height=50)
+        register.place(x=250, y=350, width=200, height=50)
 
 
         landingPage.mainloop()
